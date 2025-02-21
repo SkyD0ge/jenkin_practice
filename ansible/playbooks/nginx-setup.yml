@@ -1,0 +1,37 @@
+---
+- name: Install and Configure Nginx
+  hosts: "{{ host_group }}"
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes 
+
+    - name: Remove default index.html
+      file:
+        path: /var/www/html/index.html
+        state: absent
+
+    - name: Clone custom HTML page from GitHub
+      git:
+        repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
+        dest: /var/www/html
+        clone: yes
+        update: yes
+        force: yes
+    - name: Restart Nginx service
+      systemd:
+        name: nginx
+        state: restarted
+

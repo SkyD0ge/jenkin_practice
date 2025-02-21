@@ -1,0 +1,12 @@
+plugin: aws_ec2
+regions:
+  - eu-west-1
+filters:
+  "tag:git": "gitaction"
+strict: true
+keyed_groups:
+  - prefix: tag
+    key: tags
+hostnames:
+  - 63.35.186.106
+
