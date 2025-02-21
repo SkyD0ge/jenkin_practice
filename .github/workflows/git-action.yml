@@ -14,5 +14,5 @@ jobs:
 
       - name: Trigger Jenkins Job
         run: |
-          curl -X POST http://63.35.186.106:8080/job/<job-name>/build \
+          curl -X POST http://63.35.186.106:8080/job/jenki/build \
           --user aakash:11bd574b0513fa7fb037b9fe984122c12a
