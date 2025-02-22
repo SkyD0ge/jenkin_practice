@@ -8,5 +8,4 @@ keyed_groups:
   - prefix: tag
     key: tags
 hostnames:
-  - 63.35.186.106
-
+  - 34.247.50.180
