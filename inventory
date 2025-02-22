@@ -4,8 +4,8 @@ regions:
 filters:
   "tag:git": "gitaction"
 strict: true
-keyed_groups:
-  - prefix: tag
-    key: tags
 hostnames:
   - 34.247.50.180
+keyed_groups:
+  - key: tags.git
+    prefix: tag

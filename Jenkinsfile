@@ -1,31 +1,17 @@
 pipeline {
     agent any
-    
-    environment {
-        // Using SSH key stored in Jenkins credentials
-        EC2_SSH_KEY = credentials('EC2_SSH')
-        ANSIBLE_HOST_KEY_CHECKING = 'False'
-       
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                // Checkout the code from the GitHub repository
-                checkout scm
+                sshagent(credentials: ['ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZcP5G0bcehllXstWJNHT5cdHL+oQWqml/LAGDv5WHc aakash.sahani@outlook.com
+']) {
+                    git url: 'git@github.com:SkyD0ge/jenkin_practice.git', branch: 'main'
             }
         }
-
-        stage('Run Ansible Playbook') {
+        stage('Deploy Website') {
             steps {
-                script {
-                    // Running Ansible Playbook to configure the server
-                    sh '''
-ansible-playbook -i ./ansible/inventory.aws_ec2.yml -e 'host_group=tag_git_gitaction' ./ansible/playbooks/nginx-setup.yml -u ubuntu --private-key $EC2_SSH_KEY
-                    '''
-                }
+                sh 'ansible-playbook -i inventory deploy_website.yml'
             }
         }
     }
 }
-

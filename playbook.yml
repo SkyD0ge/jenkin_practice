@@ -1,0 +1,27 @@
+---
+- name: Deploy updated website to EC2 instance
+  hosts: 34.247.50.180
+  become: true
+  tasks:
+    - name: Ensure Nginx is installed
+      package:
+        name: nginx
+        state: present
+
+    - name: Copy website files to multiple destinations
+      copy:
+        src: nginx/
+        dest: "{{ item }}"
+        owner: nginx
+        group: nginx
+        mode: '0755'
+        recursive: yes
+      loop:
+        - /usr/share/nginx/html/
+        - /var/www/html/
+
+    - name: Restart Nginx to serve updated website
+      service:
+        name: nginx
+        state: restarted
+
