@@ -8,8 +8,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                // Replace 'github-ssh-key' with your credential ID stored in Jenkins
-                sshagent(credentials: ['github-ssh-key']) {
+                sshagent(credentials: ['id_rsa']) {
                     git url: 'git@github.com:SkyD0ge/jenkin_practice.git', branch: 'main'
                 }
             }
