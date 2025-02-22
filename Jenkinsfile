@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                sshagent(credentials: ['id_rsa']) {
+                sshagent(credentials: ['SkyD0ge']) {
                     git url: 'git@github.com:SkyD0ge/jenkin_practice.git', branch: 'main'
                 }
             }
