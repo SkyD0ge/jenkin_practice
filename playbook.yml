@@ -15,7 +15,6 @@
         owner: nginx
         group: nginx
         mode: '0755'
-        recursive: yes
       loop:
         - /usr/share/nginx/html/
         - /var/www/html/
