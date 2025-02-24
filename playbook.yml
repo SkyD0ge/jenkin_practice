@@ -29,12 +29,11 @@
         path: /var/www/html/index.html
         state: absent
       
-    - name: Clone custom HTML page from GitHub
+    - name: Ensure repository is cloned/updated in /var/www/html
       git:
         repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
         dest: /var/www/html
-        clone: yes
-        update: yes
+        version: main
         force: yes
 
     - name: Restart Nginx to serve updated website
