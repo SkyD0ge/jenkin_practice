@@ -1,11 +1,14 @@
 pipeline {
     agent any
-    stages {
+    triggers {
+        githubPush()
+    }
+    /*stages {
         stage('Prepare SSH') {
             steps {
                 sh 'mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts'
             }
-        }
+        } */
         stage('Checkout Code') {
             steps {
                 git url: 'https://github.com/SkyD0ge/jenkin_practice.git', branch: 'main'
