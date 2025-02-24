@@ -19,9 +19,7 @@ pipeline {
             }
         }
     }
-}
-
-post {
+    post {
         failure {
             emailext (
                 subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -33,5 +31,6 @@ post {
                 sh 'ansible-playbook -i inventory rollback.yml'
             }
         }
+    }
 }
 
