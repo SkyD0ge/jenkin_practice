@@ -33,6 +33,5 @@ post {
                 sh 'ansible-playbook -i inventory rollback.yml'
             }
         }
-    }
 }
 
