@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Deploy Website') {
             steps {
-                sh 'ansible-playbook -i inventory.aws_ec2.yml playbook.yml'
+                sh 'ansible-playbook -i inventory playbook.yml'
             }
         }
     }
