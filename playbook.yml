@@ -24,17 +24,17 @@
         state: started
         enabled: yes 
 
-    - name: Remove default index.html
+    - name: Remove /var/www/html if it exists
       file:
-        path: /var/www/html/index.html
+        path: /var/www/html
         state: absent
-      
-    - name: Ensure repository is cloned/updated in /var/www/html
+
+    - name: Clone repository to /var/www/html
       git:
         repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
         dest: /var/www/html
         version: main
-        force: yes
+      
 
     - name: Restart Nginx to serve updated website
       service:
