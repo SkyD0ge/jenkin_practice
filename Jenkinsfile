@@ -21,3 +21,18 @@ pipeline {
     }
 }
 
+post {
+        failure {
+            emailext (
+                subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build has failed. Please review the console output here: ${env.BUILD_URL}",
+                to: "aakash.sahani@ubuy.com"
+            )
+            echo "Build failed – initiating rollback to previous build..."
+            withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
+                sh 'ansible-playbook -i inventory rollback.yml'
+            }
+        }
+    }
+}
+
