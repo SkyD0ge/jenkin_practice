@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment {
+        EC2_SSH_KEY = credentials('id_rsa')
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
+       
+    }
+
     stages {
         stage('Prepare SSH') {
             steps {
