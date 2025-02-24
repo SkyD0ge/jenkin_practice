@@ -5,7 +5,7 @@ filters:
   "tag:git": "gitaction"
 strict: true
 hostnames:
-  - 34.247.50.180
+  - 34.243.131.113
 keyed_groups:
   - key: tags.git
     prefix: tag
