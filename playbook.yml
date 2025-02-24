@@ -22,7 +22,7 @@
       systemd:
         name: nginx
         state: started
-        enabled: yes 
+        enabled: yes
 
     - name: Remove /var/www/html if it exists
       file:
@@ -34,10 +34,8 @@
         repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
         dest: /var/www/html
         version: main
-      
 
     - name: Restart Nginx to serve updated website
       service:
         name: nginx
         state: restarted
-
