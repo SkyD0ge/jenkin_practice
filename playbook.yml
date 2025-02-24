@@ -3,6 +3,16 @@
   hosts: 34.243.131.113
   become: true
   tasks:
+    - name: Update apt cache and upgrade OS packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
     - name: Ensure Nginx is installed
       package:
         name: nginx
