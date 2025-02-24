@@ -18,16 +18,24 @@
         name: nginx
         state: present
 
-    - name: Copy website files to multiple destinations
-      copy:
-        src: nginx/
-        dest: "{{ item }}"
-        owner: nginx
-        group: nginx
-        mode: '0755'
-      loop:
-        - /usr/share/nginx/html/
-        - /var/www/html/
+    - name: Start Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes 
+
+    - name: Remove default index.html
+      file:
+        path: /var/www/html/index.html
+        state: absent
+      
+    - name: Clone custom HTML page from GitHub
+      git:
+        repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
+        dest: /var/www/html
+        clone: yes
+        update: yes
+        force: yes
 
     - name: Restart Nginx to serve updated website
       service:
