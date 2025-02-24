@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    environment {
-        EC2_SSH_KEY = credentials('id_rsa')
-        ANSIBLE_HOST_KEY_CHECKING = 'False'
-       
-    }
-
     stages {
         stage('Prepare SSH') {
             steps {
@@ -19,7 +13,9 @@ pipeline {
         }
         stage('Deploy Website') {
             steps {
-                sh 'ansible-playbook -i inventory playbook.yml'
+               withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
+                    sh 'ansible-playbook -i inventory playbook.yml'
+                }
             }
         }
     }
