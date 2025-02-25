@@ -1,6 +1,6 @@
 ---
 - name: Rollback to previous website version
-  hosts: 34.243.131.113
+  hosts: ec2
   become: true
   tasks:
     - name: Rollback website by checking out the previous commit

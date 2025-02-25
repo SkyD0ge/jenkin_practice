@@ -1,6 +1,6 @@
 ---
 - name: Deploy updated website to EC2 instance
-  hosts: 34.243.131.113
+  hosts: ec2
   become: true
   tasks:
     - name: Update apt cache and upgrade OS packages
