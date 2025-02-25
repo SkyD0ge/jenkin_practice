@@ -1,17 +1,17 @@
 ---
-- name: Deploy updated website to EC2 instance
+- name: Deploy or Rollback Website on EC2 instance
   hosts: ec2
   become: true
+  vars:
+    repo_path: "/var/www/html"
+    rollback: false
+    build_id: "{{ build_id | default('HEAD') }}"
+
   tasks:
-    - name: Install nginx
+    - name: Install Nginx
       apt:
         name: nginx
         state: latest
-
-    - name: Ensure Nginx is installed
-      package:
-        name: nginx
-        state: present
 
     - name: Start Nginx service
       systemd:
@@ -19,18 +19,14 @@
         state: started
         enabled: yes
 
-    - name: Remove /var/www/html if it exists
+    - name: Remove /var/www/html if it exists (for clean deployment)
       file:
         path: /var/www/html
         state: absent
 
     - name: Clone repository to /var/www/html
       git:
-        repo: 'https://github.com/SkyD0ge/jenkin_practice.git'
-        dest: /var/www/html
-        version: main
+        repo: "https://github.com/SkyD0ge/jenkin_practice.git"
+        dest: "{{ repo_path }}"
+        force: yes
 
-    - name: Restart Nginx to serve updated website
-      service:
-        name: nginx
-        state: restarted
