@@ -41,7 +41,7 @@ pipeline {
             emailext(
                 subject: "Jenkins Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: "Build succeeded. Running on commit: ${BUILD_ID}",
-                to: "aakash.sahani@ubuy.com"
+                to: "7yxasajh1@mozmail.com"
             )
         }
     }

@@ -1,3 +1,3 @@
 [ec2]
-54.217.190.99 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/Aakash.pem
+52.212.209.255 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/Aakash.pem
 
