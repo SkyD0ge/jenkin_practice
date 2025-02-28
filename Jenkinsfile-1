@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        docker {
+            image 'nginx:latest'
+            args '--rm=false -v $WORKSPACE:/workspace'
+        }
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SkyD0ge/jenkin_practice.git'
+            }
+        }
+        stage('Deploy Application') {
+            steps {
+                sh 'cp -r * /usr/share/nginx/html/'
+            }
+        }
+    }
+}
+
