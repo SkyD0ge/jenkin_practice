@@ -27,7 +27,7 @@ pipeline {
             emailext(
                 subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: "Build failed. Rolling back...",
-                to: "aakash.sahani@ubuy.com"
+                to: "7yxasajh1@mozmail.com"
             )
 
             echo "Build failed – rolling back to previous stable commit ${PREV_BUILD_ID}..."
