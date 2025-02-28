@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: git branch: 'main', 'https://github.com/SkyD0ge/jenkin_practice.git'
+                git branch: 'main', url: 'https://github.com/SkyD0ge/jenkin_practice.git' 
             }
         }
 
