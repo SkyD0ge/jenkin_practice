@@ -1,5 +1,7 @@
 pipeline {
-    agent 'linux'
+    agent {
+        label 'linux'
+    }
 
     environment {
         BUILD_ID = sh(script: "git log --pretty=format:'%h' -n 1", returnStdout: true).trim()
