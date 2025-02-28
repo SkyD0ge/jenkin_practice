@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'dind-rootless'
+            image 'docker:dind-rootless'
             args '--privileged --user=root -v /var/run/docker.sock:/var/run/docker.sock -v $WORKSPACE:/workspace'
         }
     }
