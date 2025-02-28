@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'nginx:latest'
-            args '--rm=false -v $WORKSPACE:/workspace'
+            image 'docker:20.10-dind'
+            args '--privileged -v /var/run/docker.sock:/var/run/docker.sock -v $WORKSPACE:/workspace'
         }
     }
     stages {
@@ -13,8 +13,31 @@ pipeline {
         }
         stage('Deploy Application') {
             steps {
-                sh 'cp -r * /usr/share/nginx/html/'
+                sh '''
+                    echo "Pulling latest nginx image..."
+                    docker pull nginx:latest
+                    
+                    echo "Inspecting nginx image..."
+                    docker inspect -f . nginx:latest
+                    
+                    echo "Removing any previously deployed container..."
+                    docker rm -f deployed-nginx || true
+                    
+                    echo "Starting new nginx container with deployed code..."
+                    docker run --name deployed-nginx -d -v $WORKSPACE:/usr/share/nginx/html:ro -p 8080:80 nginx:latest
+                    
+                    echo "Deployment complete."
+                '''
             }
+        }
+    }
+    post {
+        failure {
+            emailext(
+                subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "Build failed. Please check the logs for details.",
+                to: "aakash.sahani@ubuy.com"
+            )
         }
     }
 }
